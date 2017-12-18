@@ -1,0 +1,189 @@
+[
+    {
+        "name": "A Tale of Two Cities",
+        "tags": "ebooks, novel",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Novels",
+            "overview_name": "A Tale of Two Cities",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Charles Dickens",
+            "overview_provider": "admin",
+            "overview_description": "The novel depicts the plight of the French peasantry demoralized by the French aristocracy in the years leading up to the revolution, the corresponding brutality demonstrated by the revolutionaries toward the former aristocrats in the early years of the revolution, and many unflattering social parallels with life in London during the same time period. It follows the lives of several protagonists through these events.",
+            "images_thumbnail": "ebooks/aTaleofTwoCities/thumbnail.jpg",
+            "images_banner": "ebooks/aTaleofTwoCities/banner.png"
+        }
+    },
+    {
+        "name": "Dracula",
+        "tags": "ebooks, horror, gothic",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Horror",
+            "overview_name": "Dracula",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Bram Stoker",
+            "overview_provider": "admin",
+            "overview_description": "The novel tells the story of Draculas attempt to move from Transylvania to England, and the battle between Dracula and a small group of men and women led by Professor Abraham Van Helsing.",
+            "images_thumbnail": "ebooks/dracula/thumbnail.jpg",
+            "images_banner": "ebooks/dracula/banner.png"
+        }
+    },
+    {
+        "name": "Emma",
+        "tags": "ebooks, novel",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Novels",
+            "overview_name": "Emma",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Jane Austen",
+            "overview_provider": "admin",
+            "overview_description": "The novel is about youthful hubris and the perils of misconstrued romance.",
+            "images_thumbnail": "ebooks/emma/thumbnail.jpg",
+            "images_banner": "ebooks/emma/banner.png"
+        }
+    },
+    {
+        "name": "Gullivers Travels",
+        "tags": "ebooks, novel, fantasy",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Novels",
+            "overview_name": "Gullivers Travels",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Jonathan Swift",
+            "overview_provider": "admin",
+            "overview_description": "The book begins with a short preamble in which Lemuel Gulliver, in the style of books of the time, gives a brief outline of his life and history before his voyages. He enjoys travelling, although it is that love of travel that is his downfall.",
+            "images_thumbnail": "ebooks/gulliversTravels/thumbnail.jpg",
+            "images_banner": "ebooks/gulliversTravels/banner.png"
+        }
+    },
+    {
+        "name": "A Journey to the Center of the Earth",
+        "tags": "ebooks,novel,fiction,science,adventure",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Novels",
+            "overview_name": "A Journey to the Center of the Earth",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Jules Verne",
+            "overview_provider": "admin",
+            "overview_description": "The story involves German professor Otto Lidenbrock who believes there are volcanic tubes going toward the centre of the Earth. He, his nephew Axel, and their guide Hans descend into the Icelandic volcano Snæfellsjökull, encountering many adventures, including prehistoric animals and natural hazards, before eventually coming to the surface again in southern Italy, at the Stromboli volcano.",
+            "images_thumbnail": "ebooks/journeytoTheCenterOfTheEarth/thumbnail.jpg",
+            "images_banner": "ebooks/journeytoTheCenterOfTheEarth/banner.png"
+        }
+    },
+    {
+        "name": "A Princess of Mars",
+        "tags": "ebooks, science, fantasy, novel",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Novels",
+            "overview_name": "A Princess of Mars",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Edgar Rice Burroughs",
+            "overview_provider": "admin",
+            "overview_description": "A Princess of Mars is full of swordplay and daring feats, the novel is considered a classic example of 20th century pulp fiction. It is also a seminal instance of the planetary romance, a sub-genre of science fantasy that became highly popular in the decades following its publication. Its early chapters also contain elements of the Western. The story is set on Mars, imagined as a dying planet with a harsh desert environment.",
+            "images_thumbnail": "ebooks/princessOfMars/thumbnail.jpg",
+            "images_banner": "ebooks/princessOfMars/banner.png"
+        }
+    },
+    {
+        "name": "Robinson Crusoe",
+        "tags": "ebooks,novel,fiction",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Novels",
+            "overview_name": "Robinson Crusoe",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Daniel Defoe",
+            "overview_provider": "admin",
+            "overview_description": "The story is widely perceived to have been influenced by the life of Alexander Selkirk, a Scottish castaway who lived for four years on the Pacific island.",
+            "images_thumbnail": "ebooks/robinsonCrusoe/thumbnail.jpg",
+            "images_banner": "ebooks/robinsonCrusoe/banner.png"
+        }
+    },
+    {
+        "name": "The Adventures of Tom Sawyer",
+        "tags": "ebooks,novel,folk,children",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Novels",
+            "overview_name": "The Adventures of Tom Sawyer",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Mark Twain",
+            "overview_provider": "admin",
+            "overview_description": "The story is about a young boy growing up along the Mississippi River.",
+            "images_thumbnail": "ebooks/gtheAdventuresofTomSawyer/thumbnail.jpg",
+            "images_banner": "ebooks/theAdventuresofTomSawyer/banner.png"
+        }
+    },
+    {
+        "name": "The Odyssey",
+        "tags": "ebooks,poetry",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Poetry",
+            "overview_name": "The Odyssey",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Homer",
+            "overview_provider": "admin",
+            "overview_description": "The Odyssey is one of two major ancient Greek epic poems attributed to Homer. It is, in part, a sequel to the Iliad, the other work ascribed to Homer.",
+            "images_thumbnail": "ebooks/theOdysseyOfHomer/thumbnail.jpg",
+            "images_banner": "ebooks/theOdysseyOfHomer/banner.png"
+        }
+    },
+    {
+        "name": "The Pirates of Panama",
+        "tags": "ebooks,novel",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Novels",
+            "overview_name": "The Pirates of Panama",
+            "overview_version": "Edition-1",
+            "overview_isbn": "-",
+            "overview_author": "Alexandre Olivier",
+            "overview_provider": "admin",
+            "overview_description": "A True Account of the Famous Adventures and Daring Deeds of Sir Henry Morgan and Other Notorious Freebooters of the Spanish Main.",
+            "images_thumbnail": "ebooks/thePiratesOfPanama/thumbnail.jpg",
+            "images_banner": "ebooks/thePiratesOfPanama/banner.png"
+        }
+    },
+    {
+        "name": "The art of Unix Programming",
+        "tags": "ebooks,technology",
+        "rate": 4,
+        "attributes": {
+            "overview_status": "PUBLISHED",
+            "overview_category": "Technical",
+            "overview_name": "The art of Unix Programming",
+            "overview_version": "Edition-1",
+            "overview_isbn": "0-13-142901-9",
+            "overview_author": "Eric S. Raymond",
+            "overview_provider": "admin",
+            "overview_description": "The art of Unix Programming provides a comprehensive explanation of Unix by comparing it with other operating systems including desktop-oriented ones such as Microsoft Windows and Mac OS to ones with research roots such as EROS and Plan 9 from Bell Labs.",
+            "images_thumbnail": "ebooks/unixProgramming/thumbnail.png",
+            "images_banner": "ebooks/unixProgramming/banner.png"
+        }
+    }
+]
