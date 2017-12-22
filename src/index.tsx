@@ -1,8 +1,10 @@
 import * as React from "react";
-import { AppRegistry, View, Text, Platform, StyleSheet, FlatList } from 'react-native';
+import { AppRegistry, StatusBar, View, Text, Platform, StyleSheet, FlatList, Button, ActivityIndicator, RefreshControl } from 'react-native';
 import * as sqlite from "react-native-sqlite-storage";
 import { Database, OpenParams, Result, ErrorCode } from "react-native-sqlite-storage";
 import { Book, BookAttributes, BookSummary } from "./models";
+import { getFirstResultFrom } from "./services";
+import { getDeviceInfo } from "./deviceInfo";
 
 sqlite.DEBUG(true);
 sqlite.enablePromise(true);
@@ -11,14 +13,18 @@ let dbInstance: Database;
 const baseUrl = "https://raw.githubusercontent.com/rodrigoelp/reactnative-typescript-exercise-15/master/onlineCatalog/";
 
 interface AppState {
-    books: BookSummary[]
+    books: BookSummary[];
+    refreshing: boolean;
 }
+const deviceInfo = getDeviceInfo();
+
+type DatabaseWithData = { database: Database, isPopulated: boolean };
 
 class App extends React.Component<{}, AppState> {
     constructor(props: any) {
         super(props);
 
-        this.state = { books: [] };
+        this.state = { books: [], refreshing: false };
     }
 
     componentDidMount() {
@@ -42,10 +48,12 @@ class App extends React.Component<{}, AppState> {
     public render() {
         return (
             <View style={{ flex: 1, backgroundColor: "#eeeeff" }}>
+                <View style={{ height: deviceInfo.statusBarHeight }} />
                 <FlatList
                     data={this.state.books}
                     keyExtractor={(item, index) => `${item.id}-${index}`}
                     renderItem={({ item }) => this.renderBook(item)}
+                    refreshControl={<RefreshControl onRefresh={this.handleRefresh} refreshing={this.state.refreshing} />}
                 />
             </View>
         );
@@ -83,20 +91,20 @@ class App extends React.Component<{}, AppState> {
             "bannerUrl varchar(256)," +
             "thumbnailUrl varchar(256)" +
             ") ";
-        return db.executeSql("drop table if exists Ebooks")
-            .then(_ => db.executeSql(script))
+        return db.executeSql(script)
             .then(_ => db);
     }
 
-    checkIfBooksHaveBeenDownloaded = (db: Database) => {
-        return db.executeSql("select count(*) from Ebooks")
+    checkIfBooksHaveBeenDownloaded = (db: Database): Promise<DatabaseWithData> => {
+        return db.executeSql("select count(*) as numberOfBooks from Ebooks")
             .then(r => {
-                console.log("");
-                return { database: db, isPopulated: false };
+                type queryType = { numberOfBooks: number };
+                const result = getFirstResultFrom<queryType, queryType>(r, x => x);
+                return { database: db, isPopulated: result.length === 1 && result.items[0].numberOfBooks > 0 };
             });
     }
 
-    downloadContentIfRequired = (result: { database: Database, isPopulated: boolean }) => {
+    downloadContentIfRequired = (result: DatabaseWithData) => {
         if (!result.isPopulated) {
             return fetch(`${baseUrl}index.json`)
                 .then(r => r.json())
@@ -137,23 +145,41 @@ class App extends React.Component<{}, AppState> {
         console.log("ready to set the state");
         const promise = db.executeSql("select book_id, name, author, rating, tags, bannerUrl, thumbnailUrl from Ebooks")
             .then(s => {
-                const rows = s[0].rows;
-                const result = new Array(rows.length)
-                    .fill(0)
-                    .map((_, index) => rows.item(index))
-                    .map<BookSummary>(item => ({
-                        id: item.book_id,
-                        name: item.name,
-                        author: item.author,
-                        rate: item.rating,
-                        banner: item.bannerUrl,
-                        thumbnail: item.thumbnailUrl,
-                        tags: item.tags
-                    }));
-                this.setState({ ...this.state, books: result });
+                type ebookDataModel = { book_id: number, name: string, author: string, rating: number, tags: string, bannerUrl: string, thumbnailUrl: string };
+                const books = getFirstResultFrom<ebookDataModel, BookSummary>(s, i => ({
+                    id: i.book_id,
+                    name: i.name,
+                    author: i.author,
+                    rate: i.rating,
+                    banner: i.bannerUrl,
+                    thumbnail: i.thumbnailUrl,
+                    tags: i.tags
+                }));
+
+                this.setState({ ...this.state, books: books.items });
             });
 
         return promise;
+    }
+
+    handleRefresh = () => {
+        // On refresh, we will destroy the database, redownload the content and reinserted.
+        const db = dbInstance;
+        const emptyDb: DatabaseWithData = { database: db, isPopulated: false };
+        this.setState({ ...this.state, refreshing: true });
+        db.executeSql("delete from Ebooks")
+            .then(_ => { // intentionally adding a delay to see it happen on the device.
+                return new Promise<void>((resolve, reject) => {
+                    setTimeout(() => resolve(), 3000);
+                });
+            })
+            .then(_ => emptyDb)
+            .then(this.downloadContentIfRequired)
+            .then(this.displayContents)
+            .then(_ => this.setState({ ...this.state, refreshing: false }))
+            .catch(e => {
+                console.log("I really need to include something to handle my errors");
+            });
     }
 }
 

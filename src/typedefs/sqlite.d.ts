@@ -14,7 +14,7 @@ declare module "react-native-sqlite-storage" {
         rowAffected: number;
         insertId?: number;
         rows: {
-            lenght: number;
+            length: number;
             item(index: number): any;
         };
     }
@@ -31,7 +31,7 @@ declare module "react-native-sqlite-storage" {
     }
 
     export interface Transaction {
-        executeSql(statement: string, params?: any[]): Promise<any>;
+        executeSql(statement: string, params?: any[]): Promise<Result[]>;
         // executeSql(statement: string, params?: any[], onSuccess?: (tx: Transaction, result: Result) => void, onError?: (tx: Transaction, error: Error) => void): void;
     }
 
@@ -41,10 +41,10 @@ declare module "react-native-sqlite-storage" {
         // transaction(fn: (tx: Transaction) => void, onError?: ErrorCallback, onSuccess?: SuccessCallback): void;
         // readTransaction(fn: (tx: Transaction) => void, onError?: ErrorCallback, onSuccess?: SuccessCallback): void;
         // close(onSuccess: SuccessCallback, onError?: ErrorCallback): void;
-        executeSql(statement: string, params?: any[]): Promise<any[]>;
-        sqlBatch(statements: Array<string | [string, any[]]>): Promise<any[]>;
-        transaction(fn: (tx: Transaction) => void): Promise<any[]>;
-        readTransaction(fn: (tx: Transaction) => void): Promise<any[]>;
+        executeSql(statement: string, params?: any[]): Promise<Result[]>;
+        sqlBatch(statements: Array<string | [string, any[]]>): Promise<Result[]>;
+        transaction(fn: (tx: Transaction) => void): Promise<Result[]>;
+        readTransaction(fn: (tx: Transaction) => void): Promise<Result[]>;
         close(): Promise<any>; // gives you a status.
 
         abortAllPendingTransactions(): void;
