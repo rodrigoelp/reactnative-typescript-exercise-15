@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppRegistry, StatusBar, View, Text, Platform, StyleSheet, FlatList, Button, ActivityIndicator, RefreshControl } from 'react-native';
+import { AppRegistry, StatusBar, View, Image, Text, Platform, StyleSheet, FlatList, Button, ActivityIndicator, RefreshControl } from 'react-native';
 import * as sqlite from "react-native-sqlite-storage";
 import { Database, OpenParams, Result, ErrorCode } from "react-native-sqlite-storage";
 import { Book, BookAttributes, BookSummary } from "./models";
@@ -54,15 +54,23 @@ class App extends React.Component<{}, AppState> {
                     keyExtractor={(item, index) => `${item.id}-${index}`}
                     renderItem={({ item }) => this.renderBook(item)}
                     refreshControl={<RefreshControl onRefresh={this.handleRefresh} refreshing={this.state.refreshing} />}
+                    ItemSeparatorComponent={this.renderSeparator}
                 />
             </View>
         );
     }
 
+    renderSeparator = () => {
+        return (
+            <View style={{ height: 1, backgroundColor: "gray", marginHorizontal: 40 }} />
+        );
+    }
+
     renderBook = (book: BookSummary) => {
         return (
-            <View style={{ flex: 1 }}>
-                <Text>{book.name}</Text>
+            <View style={{ flex: 1, padding: 20, flexDirection: "row" }}>
+                <Image source={{ uri: book.thumbnail, height: 80, width: 80 }} />
+                <Text style={{ flex: 1, alignSelf: "center", textAlign: "center", textAlignVertical: "center" }}>{book.name}</Text>
             </View>
         );
     }
