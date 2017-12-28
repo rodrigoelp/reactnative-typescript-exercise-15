@@ -14,7 +14,7 @@ export interface DeviceInfo {
 }
 
 export function getDeviceInfo(): DeviceInfo {
-    const osType: PlatformType = PlatformType[Platform.OS];
+    const osType: PlatformType = toEnum(Platform.OS);
     const statusBarHeight: number = Platform.select({
         ios: isIphoneX() ? 44 : 20,
         android: getAndroidStatusBarHeight(),
@@ -24,6 +24,23 @@ export function getDeviceInfo(): DeviceInfo {
     });
 
     return { platformType: osType, statusBarHeight };
+}
+
+function toEnum(platformName: PlatformOSType): PlatformType {
+    switch (platformName) {
+        case "ios":
+            return PlatformType.iOs;
+        case "android":
+            return PlatformType.Android;
+        case "windows":
+            return PlatformType.Windows;
+        case "macos":
+            return PlatformType.MacOs;
+        case "web":
+            return PlatformType.Web;
+        default:
+            throw "Unknown platform";
+    }
 }
 
 function isIphoneX() {
