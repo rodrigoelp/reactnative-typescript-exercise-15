@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppRegistry, StatusBar, View, Image, Text, Platform, StyleSheet, FlatList, Button, ActivityIndicator, RefreshControl } from 'react-native';
+import { AppRegistry, StatusBar, View, Image, Text, Platform, StyleSheet, FlatList, Button, ActivityIndicator, RefreshControl, Alert } from 'react-native';
 import * as sqlite from "react-native-sqlite-storage";
 import { Database, OpenParams, Result, ErrorCode } from "react-native-sqlite-storage";
 import { Book, BookAttributes, BookSummary } from "./models";
@@ -9,25 +9,36 @@ import { getDeviceInfo } from "./deviceInfo";
 sqlite.DEBUG(true);
 sqlite.enablePromise(true);
 
+// this is the global instance of the database (as an example, find a better place to keep the database reference)
 let dbInstance: Database;
+// base url to query my json resources.
 const baseUrl = "https://raw.githubusercontent.com/rodrigoelp/reactnative-typescript-exercise-15/master/onlineCatalog/";
 
-interface AppState {
-    books: BookSummary[];
-    refreshing: boolean;
-}
+// Getting an isntance of the device information to optimise the status bar rendering based on the device.
 const deviceInfo = getDeviceInfo();
 
 type DatabaseWithData = { database: Database, isPopulated: boolean };
 
+// state of the app component.
+interface AppState {
+    books: BookSummary[];
+    refreshing: boolean;
+}
+
+// This is the component we are going to be working on.
+// It does not reflex anything you should be following, is just a sample on how to get the database working and how to extra data from it.
 class App extends React.Component<{}, AppState> {
     constructor(props: any) {
         super(props);
 
+        // When the application first lauches, the known state should be empty, this will be populated later on when the component is mounted.
         this.state = { books: [], refreshing: false };
     }
 
     componentDidMount() {
+        // Hope the chain of promises and cascade of methods is self explanatory.
+        // If anything bad were to happen, it should be caught by the last condition and display
+        // a message to the user.
         this.initDbConnection()
             .then(this.createDatabase)
             .then(this.checkIfBooksHaveBeenDownloaded)
@@ -35,11 +46,14 @@ class App extends React.Component<{}, AppState> {
             .then(this.displayContents)
             .catch(e => {
                 const code = e.code as number;
-                console.log(`App needs to display an error message here. Received an reason (${code}) and message: ${e.message}`);
+                const msg = `App needs to display an error message here. Received an reason (${code}) and message: ${e.message}`;
+                console.log(msg);
+                Alert.alert("Something very very bad just happened.", msg);
             });
     }
 
     componentWillUnmount() {
+        // Now... when the component is going to be unmounted, we need to do a little clean up.
         if (dbInstance) {
             dbInstance.close();
         }
@@ -70,7 +84,11 @@ class App extends React.Component<{}, AppState> {
         return (
             <View style={{ flex: 1, padding: 20, flexDirection: "row" }}>
                 <Image source={{ uri: book.thumbnail, height: 80, width: 80 }} />
-                <Text style={{ flex: 1, alignSelf: "center", textAlign: "center", textAlignVertical: "center" }}>{book.name}</Text>
+                <View style={{ flex: 1, alignContent: "center" }}>
+                    <Text style={{ flex: 1, textAlign: "center", textAlignVertical: "center" }}>{book.name}</Text>
+                    <Text style={{ flex: 1, textAlign: "center" }}>By: {book.author}</Text>
+                    <Text style={{ flex: 1, textAlign: "right" }}>Rating: {book.rate} / 5</Text>
+                </View>
             </View>
         );
     }
@@ -136,6 +154,10 @@ class App extends React.Component<{}, AppState> {
                             .catch(e => console.log(`Cound not insert code:${e.code} '${e.message}'`));
                     }
                 );
+
+                // Unfortunately, this mapping does not seem to work in my code :(
+                // Maybe the type definition is incorrect.
+
                 // const rowsToInsert = data.map(_ => "(?)").join(", ");
                 // const valuesToInsert = data.map((book, index) => {
                 //     const banner = `${baseUrl}${book.attributes.images_banner}`;
@@ -148,6 +170,7 @@ class App extends React.Component<{}, AppState> {
                 //     .catch(e => console.log(`Cound not insert code:${e.code} '${e.message}'`));
             });
     }
+
     displayContents = (x: any) => {
         const db = dbInstance;
         console.log("ready to set the state");
